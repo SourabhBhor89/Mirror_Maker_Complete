@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 public class Startup
 {
@@ -9,8 +5,9 @@ public class Startup
     {
         services.AddControllers();
 
-        // Register the Kafka background service
-        services.AddHostedService<KafkaConsumerService>();
+        services.AddScoped<ServiceB>(provider => new ServiceB("localhost:9092"));
+
+        services.AddHostedService(provider => new KafkaConsumerService("localhost:9092"));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

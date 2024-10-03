@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using Confluent.Kafka;
 
+namespace MicroservicesSolution.ServiceA.Services 
+{
 public class KafkaProducerService
 {
     private readonly IProducer<string, string> _producer;
@@ -15,22 +15,26 @@ public class KafkaProducerService
         _producer = new ProducerBuilder<string, string>(config).Build();
     }
 
-    public async Task ProduceAsync(string topic, string message)
+
+        public async Task ProduceAsync(string topic, MessageDto messageDto)
+{
+    try
     {
-        try
-        {
-            await _producer.ProduceAsync(topic, new Message<string, string> { Value = message });
-            Console.WriteLine($"Produced message: {message} to Source topic: {topic}");
-        }
-        catch (ProduceException<string, string> ex)
-        {
-            Console.WriteLine($"Error producing message: {ex.Error.Reason}");
-            throw; 
-        }
+        var payload = $"{{ \"Message\": \"{messageDto.Message}\", \"Origin\": \"{messageDto.Origin}\" }}";
+
+        await _producer.ProduceAsync(topic, new Message<string, string> { Value = payload });
+        Console.WriteLine($"Produced message: {payload} to topic: {topic}");
     }
+    catch (ProduceException<string, string> ex)
+    {
+        Console.WriteLine($"Error producing message: {ex.Error.Reason}");
+        throw;
+    }
+}
 
     public void Dispose()
     {
         _producer.Dispose();
     }
+}
 }

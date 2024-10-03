@@ -56,3 +56,4 @@ D:\MICRO_SAMPLE\MicroservicesSolution\ServiceB\obj\Debug\net8.0\refint\ServiceB.
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceB\obj\Debug\net8.0\ServiceB.pdb
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceB\obj\Debug\net8.0\ServiceB.genruntimeconfig.cache
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceB\obj\Debug\net8.0\ref\ServiceB.dll
+D:\MICRO_SAMPLE\MicroservicesSolution\ServiceB\obj\Debug\net8.0\ServiceB.sourcelink.json

@@ -42,6 +42,7 @@ D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\ServiceA.Assembl
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\ServiceA.csproj.CoreCompileInputs.cache
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\ServiceA.MvcApplicationPartsAssemblyInfo.cs
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\ServiceA.MvcApplicationPartsAssemblyInfo.cache
+D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\ServiceA.sourcelink.json
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\staticwebassets.build.json
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\staticwebassets.development.json
 D:\MICRO_SAMPLE\MicroservicesSolution\ServiceA\obj\Debug\net8.0\staticwebassets\msbuild.ServiceA.Microsoft.AspNetCore.StaticWebAssets.props

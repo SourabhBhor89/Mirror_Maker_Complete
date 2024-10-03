@@ -5,44 +5,43 @@ public class KafkaConsumerService : BackgroundService
     private readonly IConsumer<string, string> _consumerA;
     private readonly IProducer<string, string> _producerA;
 
-    public KafkaConsumerService(string bootstrapServers)
+    public KafkaConsumerService()
     {
-        var consumerConfig = new ConsumerConfig
+        var consumerConfigA = new ConsumerConfig
         {
-            BootstrapServers = bootstrapServers,
-            GroupId = "service-b-group",
+            BootstrapServers = "localhost:9092",
+            GroupId = "service-a-group",
             AutoOffsetReset = AutoOffsetReset.Earliest,
         };
 
         var producerConfig = new ProducerConfig
         {
-            BootstrapServers = bootstrapServers
+            BootstrapServers = "localhost:9092"
         };
 
-        _consumerA = new ConsumerBuilder<string, string>(consumerConfig).Build();
+        _consumerA = new ConsumerBuilder<string, string>(consumerConfigA).Build();
         _producerA = new ProducerBuilder<string, string>(producerConfig).Build();
 
-        _consumerA.Subscribe("service-a-topic");
+        _consumerA.Subscribe("service-b-topic");
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Console.WriteLine("Started consuming messages from service-a-topic...");
+        Console.WriteLine("Started consuming messages from service-b-topic...");
 
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
+                
                 var consumeResult = _consumerA.Consume(stoppingToken);
                 var message = consumeResult.Message.Value;
+                if(message.Contains("ServiceB")){
+                Console.WriteLine($"Message consumed from service-b-topic: {message}");
 
-                if (message.Contains("ServiceA"))
-                {
-                    Console.WriteLine($"Message consumed from service-a-topic: {message}");
-
-                    
-                    await _producerA.ProduceAsync("service-b-topic", new Message<string, string> { Value = message });
-                    Console.WriteLine($"Message replicated to service-b-topic: {message}");
+               
+                await _producerA.ProduceAsync("service-a-topic", new Message<string, string> { Value = message });
+                Console.WriteLine($"Message replicated to service-a-topic: {message}");
                 }
             }
             catch (ConsumeException ex)
