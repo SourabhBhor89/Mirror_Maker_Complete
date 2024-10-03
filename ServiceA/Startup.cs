@@ -1,11 +1,15 @@
 using MicroservicesSolution.ServiceA.Services;
+
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        services.AddSingleton(sp => new KafkaProducerService("localhost:9092"));
-        services.AddHostedService<KafkaConsumerService>(); 
+
+        
+        services.AddSingleton<KafkaProducerService>(sp => new KafkaProducerService("localhost:9092"));
+        
+        services.AddHostedService(provider => new KafkaConsumerService());
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -16,6 +20,12 @@ public class Startup
         }
 
         app.UseRouting();
-        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        
+        Console.WriteLine("Application is starting...");
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }
