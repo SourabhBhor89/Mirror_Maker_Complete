@@ -5,9 +5,11 @@ public class Startup
     {
         services.AddControllers();
 
-        services.AddScoped<ServiceB>(provider => new ServiceB("localhost:9092"));
+ services.AddSingleton<ServiceB>(sp => new ServiceB("localhost:9092"));
 
         services.AddHostedService(provider => new KafkaConsumerService("localhost:9092"));
+
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
